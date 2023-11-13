@@ -49,7 +49,7 @@ class _UsersViewState extends State<UsersView> {
                         const SizedBox(width: 8),
                         TextButton(
                           child: const Text('DELETE'),
-                          onPressed: () {/* ... */},
+                          onPressed: () => _showDeleteDialog(context, user),
                         ),
                         const SizedBox(width: 8),
                       ],
@@ -63,4 +63,46 @@ class _UsersViewState extends State<UsersView> {
       ),
     );
   }
+
+  void _showDeleteDialog(BuildContext context, User user) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Delete User'),
+          content: Text('Are you sure you want to delete ${user.Username}?'),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('Cancel'),
+              onPressed: () {
+                Navigator.of(context).pop(); // Close the dialog
+              },
+            ),
+            TextButton(
+              child: const Text('Delete'),
+              onPressed: () {
+                _deleteUser(user);
+                Navigator.of(context).pop(); // Close the dialog
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  void _deleteUser(User user) {
+  widget.userClient.deleteUser(user._id).then((isDeleted) {
+    if (isDeleted) {
+      setState(() {
+        users.removeWhere((u) => u._id == user._id); // Assuming each user has a unique ID
+      });
+    } else {
+      // Handle deletion failure (e.g., show a snackbar with an error message)
+    }
+  }).catchError((error) {
+    // Handle any exceptions/errors here
+  });
+}
+
 }

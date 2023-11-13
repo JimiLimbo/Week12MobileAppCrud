@@ -3,6 +3,8 @@ import 'package:crud_app/Models/LoginStructure.dart';
 import 'package:crud_app/Models/User.dart';
 import 'package:dio/dio.dart';
 import 'DataService.dart';
+import 'package:http/http.dart' as http;
+
 
 const String BaseUrl = "http://192.168.0.5:1250/Auth";
 
@@ -47,7 +49,7 @@ class UserClient {
         List<User> users = new List.empty(growable: true);
         if (response != null) {
           for (var user in response.data) {
-            users.add(User(user["Username"], user["Password"], user["Email"],
+            users.add(User(user["_id"], user["Username"], user["Password"], user["Email"],
                 user["AuthLevel"]));
           }
           return users;
@@ -58,6 +60,18 @@ class UserClient {
     } catch (error) {
       print(error);
       return null;
+    }
+  }
+
+    Future<void> _deleteUser(String userId) async {
+    var url = Uri.parse('https://cmsc2204-mobile-api.onrender.com/Auth/DeleteUserById'); // Replace with your actual API endpoint
+    var response = await http.delete(url);
+
+    if (response.statusCode == 200) {
+      // Successfully deleted the user
+      // Update your UI or state here if needed
+    } else {
+      // Handle the error
     }
   }
 }

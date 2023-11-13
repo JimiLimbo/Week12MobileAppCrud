@@ -92,17 +92,20 @@ class _UsersViewState extends State<UsersView> {
   }
 
   void _deleteUser(User user) {
-  widget.userClient.deleteUser(user._id).then((isDeleted) {
-    if (isDeleted) {
-      setState(() {
-        users.removeWhere((u) => u._id == user._id); // Assuming each user has a unique ID
-      });
-    } else {
-      // Handle deletion failure (e.g., show a snackbar with an error message)
-    }
-  }).catchError((error) {
-    // Handle any exceptions/errors here
-  });
-}
+    ;
+  }
 
+//   void _deleteUser(User user) {
+//   widget.userClient.deleteUser(user._id).then((isDeleted) {
+//     if (isDeleted) {
+//       setState(() {
+//         users.removeWhere((u) => u._id == user._id); // Assuming each user has a unique ID
+//       });
+//     } else {
+//       // Handle deletion failure (e.g., show a snackbar with an error message)
+//     }
+//   }).catchError((error) {
+//     // Handle any exceptions/errors here
+//   });
+// }
 }

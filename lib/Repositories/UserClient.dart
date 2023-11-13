@@ -4,7 +4,7 @@ import 'package:crud_app/Models/User.dart';
 import 'package:dio/dio.dart';
 import 'DataService.dart';
 
-const String BaseUrl = "https://cmsc2204-mobile-api.onrender.com/Auth";
+const String BaseUrl = "http://192.168.0.5:1250/Auth";
 
 class UserClient {
   final _dio = Dio(BaseOptions(baseUrl: BaseUrl));
